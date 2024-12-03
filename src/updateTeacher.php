@@ -40,27 +40,7 @@ echo "</pre>";
 
 <body>
 
-    <header>
-        <div class="container-header">
-            <div class="titre-header">
-                <h1>Surnom des enseignants</h1>
-            </div>
-            <div class="login-container">
-                <form action="#" method="post">
-                    <label for="user"> </label>
-                    <input type="text" name="user" id="user" placeholder="Login">
-                    <label for="password"> </label>
-                    <input type="password" name="password" id="password" placeholder="Mot de passe">
-                    <button type="submit" class="btn btn-login">Se connecter</button>
-                </form>
-            </div>
-        </div>
-        <nav>
-            <h2>Zone pour le menu</h2>
-            <a href="index.php">Accueil</a>
-            <a href="addTeacher.php">Ajouter un enseignant</a>
-        </nav>
-    </header>
+    <?php include("./parts/header.inc.php") ?>
 
     <div class="container">
         <div class="user-body">
@@ -68,9 +48,9 @@ echo "</pre>";
                 <h3>Edit d'un enseignant</h3>
                 <p>
                     <input type="hidden" name="idTeacher" value="<?= $teacher["idTeacher"] ?>">
-                    <?php 
-                    if($teacher["teaGender"] === "M"){
-                        ?>
+                    <?php
+                    if ($teacher["teaGender"] === "M") {
+                    ?>
                         <input type="radio" id="genre1" name="genre" value="M" checked>
                         <label for="genre1">Homme</label>
                         <input type="radio" id="genre2" name="genre" value="F">
@@ -78,58 +58,60 @@ echo "</pre>";
                         <input type="radio" id="genre3" name="genre" value="A">
                         <label for="genre3">Autre</label>
                     <?php
-                    } 
+                    }
                     ?>
-                     <?php 
-                    if($teacher["teaGender"] === "F"){
-                        ?>
-                        <input type="radio" id="genre1" name="genre" value="M" >
+                    <?php
+                    if ($teacher["teaGender"] === "F") {
+                    ?>
+                        <input type="radio" id="genre1" name="genre" value="M">
                         <label for="genre1">Homme</label>
                         <input type="radio" id="genre2" name="genre" value="F" checked>
                         <label for="genre2">Femme</label>
                         <input type="radio" id="genre3" name="genre" value="A">
                         <label for="genre3">Autre</label>
                     <?php
-                    } 
+                    }
                     ?>
-                    <?php 
-                    if($teacher["teaGender"] === "A"){
-                        ?>
-                        <input type="radio" id="genre1" name="genre" value="M" >
+                    <?php
+                    if ($teacher["teaGender"] === "A") {
+                    ?>
+                        <input type="radio" id="genre1" name="genre" value="M">
                         <label for="genre1">Homme</label>
-                        <input type="radio" id="genre2" name="genre" value="F" >
+                        <input type="radio" id="genre2" name="genre" value="F">
                         <label for="genre2">Femme</label>
                         <input type="radio" id="genre3" name="genre" value="A" checked>
                         <label for="genre3">Autre</label>
                     <?php
-                    } 
+                    }
                     ?>
                 </p>
                 <p>
                     <label for="firstName">Nom :</label>
-                    <input type="text" name="firstName" id="firstName" value="<?php echo $teacher["teaFirstname"]?>">
+                    <input type="text" name="firstName" id="firstName" value="<?php echo $teacher["teaFirstname"] ?>">
                 </p>
                 <p>
                     <label for="name">Prénom :</label>
-                    <input type="text" name="name" id="name" value="<?php echo $teacher["teaName"]?>">
+                    <input type="text" name="name" id="name" value="<?php echo $teacher["teaName"] ?>">
                 </p>
                 <p>
                     <label for="nickName">Surnom :</label>
-                    <input type="text" name="nickName" id="nickName" value="<?php echo $teacher["teaNickname"]?>">
+                    <input type="text" name="nickName" id="nickName" value="<?php echo $teacher["teaNickname"] ?>">
                 </p>
                 <p>
                     <label for="origin">Origine :</label>
-                    <textarea name="origin" id="origin"><?php echo $teacher["teaOrigine"]?></textarea>
+                    <textarea name="origin" id="origin"><?php echo $teacher["teaOrigine"] ?></textarea>
                 </p>
                 <p>
                     <label style="display: none" for="section"></label>
                     <select name="section" id="section">
                         <option value="">Section</option>
-                        <?php                     
-                        foreach($sections as $section){ ?>
-                            <option value="<?= $section['idSection'] ?>" <?php if ($sectionOfTeacher["idSection"] == $section["idSection"] ) { echo "selected"; } ?>><?php echo $section['secName'] ?></option>                      
+                        <?php
+                        foreach ($sections as $section) { ?>
+                            <option value="<?= $section['idSection'] ?>" <?php if ($sectionOfTeacher["idSection"] == $section["idSection"]) {
+                                                                                echo "selected";
+                                                                            } ?>><?php echo $section['secName'] ?></option>
                         <?php }
-                        ?>             
+                        ?>
                     </select>
                 </p>
                 <p>
@@ -143,9 +125,7 @@ echo "</pre>";
         </div>
     </div>
 
-    <footer>
-        <p>Copyright GCR - bulle web-db - 2022</p>
-    </footer>
+    <?php include("./parts/footer.inc.php") ?>
 
 </body>
 

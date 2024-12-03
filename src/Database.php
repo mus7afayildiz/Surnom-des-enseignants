@@ -191,6 +191,30 @@ class Database
         $this->querySimpleExecute($query);
     }
 
+    public function Login($datas)
+    {
+        $login = false;
+        // recuperer les données
+        $userName = $datas['user'];
+        $password = $datas['password'];
+
+        // Ajout de données avec requête préparée (requête paramétrée)
+        $query = "SELECT * FROM `t_user`";
+                  
+        $req = $this->querySimpleExecute($query);
+        $users = $this->formatData($req);
+
+        foreach($users as $user){
+            if($user[`useLogin`] == $userName){
+                echo "giris basarili";
+                $login = true;
+                $_SESSION["currentUser"]["name"] = $user[`useLogin`];
+                echo "<pre>";
+                var_dump($_SESSION);
+                echo "</pre>";
+            }
+        }
+    }
     /*
     // Ajouter un utilisateur dans le base de données
     public function checkLogin($datas)

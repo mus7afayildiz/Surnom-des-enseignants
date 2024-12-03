@@ -2,9 +2,6 @@
 include ("./Database.php");
 $db = new Database();
 
-
-
-
 $errors =[];
 if(!isset($_POST['genre'])){
     $errors[] = "il faut choisir un gender";

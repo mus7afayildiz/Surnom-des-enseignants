@@ -1,5 +1,5 @@
 <?php
-include ("./Database.php");
+include("./Database.php");
 $db = new Database();
 $sections = $db->getAllSection();
 echo "<pre>";
@@ -15,32 +15,12 @@ echo "</pre>";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="./css/style.css" rel="stylesheet">
-    <title>Version statique de l'application des surnoms</title>
+    <title>Application des surnoms des enseignants</title>
 </head>
 
 <body>
 
-    <header>
-        <div class="container-header">
-            <div class="titre-header">
-                <h1>Surnom des enseignants</h1>
-            </div>
-            <div class="login-container">
-                <form action="#" method="post">
-                    <label for="user"> </label>
-                    <input type="text" name="user" id="user" placeholder="Login">
-                    <label for="password"> </label>
-                    <input type="password" name="password" id="password" placeholder="Mot de passe">
-                    <button type="submit" class="btn btn-login">Se connecter</button>
-                </form>
-            </div>
-        </div>
-        <nav>
-            <h2>Zone pour le menu</h2>
-            <a href="index.php">Accueil</a>
-            <a href="addTeacher.php">Ajouter un enseignant</a>
-        </nav>
-    </header>
+    <?php include("./parts/header.inc.php") ?>
 
     <div class="container">
         <div class="user-body">
@@ -74,11 +54,11 @@ echo "</pre>";
                     <label style="display: none" for="section"></label>
                     <select name="section" id="section">
                         <option value="">Section</option>
-                        <?php                     
-                        foreach($sections as $section){ ?>
-                            <option value="<?= $section['idSection'] ?>"><?php echo $section['secName'] ?></option>                      
+                        <?php
+                        foreach ($sections as $section) { ?>
+                            <option value="<?= $section['idSection'] ?>"><?php echo $section['secName'] ?></option>
                         <?php }
-                        ?>             
+                        ?>
                     </select>
                 </p>
                 <p>
@@ -92,9 +72,7 @@ echo "</pre>";
         </div>
     </div>
 
-    <footer>
-        <p>Copyright GCR - bulle web-db - 2022</p>
-    </footer>
+    <?php include("./parts/footer.inc.php") ?>
 
 </body>
 

@@ -7,3 +7,4 @@ $db = new Database();
 $db->addTeacher($_POST);
 
 header("Location: ./index.php");
+exit;
