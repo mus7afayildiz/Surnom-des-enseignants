@@ -1,10 +1,17 @@
 <?php
+/*
+ETML
+Auteur        : Mustafa Yildiz
+Date          : 30.09.2024
+Description   : Contôler des saisies utilisateur pour mettre à jour un enseignant
+*/
+
 include ("./Database.php");
 $db = new Database();
 
 $errors =[];
 if(!isset($_POST['genre'])){
-    $errors[] = "il faut choisir un gender";
+    $errors[] = "il faut choisir un genre";
 }
 
 $firstNamePattern = "/^[a-zA-Z]+$/";

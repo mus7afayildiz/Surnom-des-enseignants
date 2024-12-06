@@ -1,4 +1,10 @@
 <?php
+/*
+ETML
+Auteur        : Mustafa Yildiz
+Date          : 30.09.2024
+Description   : Afficher les details de l'enseignant
+*/
 
 include("Database.php");
 

@@ -1,4 +1,10 @@
 <?php
+/*
+ETML
+Auteur        : Mustafa Yildiz
+Date          : 30.09.2024
+Description   : Page d'accueil permet de afficher les enseignants
+*/
 
 include("./Database.php");
 $db = new Database();

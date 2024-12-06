@@ -1,4 +1,11 @@
 <?php
+/*
+ETML
+Auteur        : Mustafa Yildiz
+Date          : 30.09.2024
+Description   : Validation des saisies utilisateur 
+*/
+
 include ("./Database.php");
 $db = new Database();
 

@@ -1,4 +1,10 @@
 <?php
+/*
+ETML
+Auteur        : Mustafa Yildiz
+Date          : 30.09.2024
+Description   : Permet de mettre à jour un enseignant
+*/
 
 include("Database.php");
 $idTeacher = $_GET["idTeacher"];

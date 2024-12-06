@@ -1,9 +1,10 @@
 <?php
 /*
- * Auteur : Mustafa Yildiz
- * Date : 30.09.2024
- * Description : Connection db
- */
+ETML
+Auteur        : Mustafa Yildiz
+Date          : 30.09.2024
+Description   : Connection db
+*/
 
 class Database
 {

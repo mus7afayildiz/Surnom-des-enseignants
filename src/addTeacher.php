@@ -1,4 +1,11 @@
 <?php
+/*
+ETML
+Auteur        : Mustafa Yildiz
+Date          : 30.09.2024
+Description   : Ajouter un enseignant avec genre, nom, prénom, surnom, origin, section.
+*/
+
 include("./Database.php");
 $db = new Database();
 $sections = $db->getAllSection();
