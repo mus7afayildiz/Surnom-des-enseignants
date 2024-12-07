@@ -12,12 +12,12 @@ class Database
     // Attribut de classe
     private $connector;
 
-    /**
-     * TODO: � compl�ter
-     */
+    /*
+    Permet de connection base de données
+    */
     public function __construct()
     {
-        // TODO: Se connecter via PDO et utilise la variable de classe $connector
+        // Se connecter via PDO et utilise la variable de classe $connector
         try {
             $this->connector = new PDO('mysql:host=localhost:6033;dbname=db_teachers;charset=utf8', 'root', 'root');
         } catch (PDOException $e) {
@@ -26,129 +26,155 @@ class Database
     }
 
 
-    /**
-     * TODO: � compl�ter
-     */
+    /*
+    La requête d'adresse SQL fournie en paramètre est traitée grâce à la commande query simple execute.
+    */
     private function querySimpleExecute($query)
     {
-        // TODO: permet de pr�parer et d�ex�cuter une requ�te de type simple (sans where)
+        // Permet de préparer et d'exécuter une requéte de type simple (sans where)
         return $this->connector->query($query);
     }
 
-    /**
-     * TODO: � compl�ter
-     */
+    /*
+    La requête d'adresse SQL fournie en paramètre est traitée grâce à la commande query prepare execute.
+    */
     private function queryPrepareExecute($query, $binds)
     {
-        //permet de préparer et d'exécuter une requéte de type prepare avec WHERE       
+        // Permet de préparer et d'exécuter une requéte de type prepare avec WHERE       
         $req = $this->connector->prepare($query);
 
         foreach($binds as $bind) {
             $req->bindValue($bind[0], $bind[1], $bind[2]);
         }
         
+        // Permet de exécuter method prepare
         $req->execute();
 
         return $req;
     }
 
-    /**
-     * TODO: � compl�ter
-     */
+    /*
+    Permet de récupérer les données
+    */
     private function formatData($req)
     {
         return $req->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /**
-     * TODO: � compl�ter
-     */
+    /*
+    Permet de vider le jeu d'enregistrements
+    */
     private function unsetData($req)
     {
         // Vider le jeu d'enregistrements
         return $req->closeCursor();
     }
 
-    /**
-     * Récupérer la liste de tous les enseignants de la BD
-     */
+    /*
+    Récupérer la liste de tous les enseignants de la BD
+    */
     public function getAllTeachers()
     {
-        // avoir la requête sql
+        // Avoir la requête sql
         $query = "SELECT * FROM t_teacher;";
 
-        // appeler la méthode pour executer la requ�te
+        // Permet de préparer et d'exécuter une requéte de type simple (sans where)
         $req = $this->querySimpleExecute($query);
 
-        // TODO: appeler la m�thode pour avoir le r�sultat sous forme de tableau
+        // Appeler la méthode pour avoir le résultat sous forme de tableau
         $teachers = $this->formatData($req);
 
-        //var_dump($teachers);
-        // TODO: retour tous les enseignants
-
+        // Retour les enseignants
         return $teachers;
     }
 
-    /**
-     * TODO: � compl�ter
-     */
+    /*
+    Récupérer un enseignant de la BD
+    */
     public function getOneTeacher($idTeacher)
     {
+        // Avoir la requête sql
         $query = "SELECT * FROM t_teacher WHERE idTeacher = :idTeacher";
 
         $binds = [
             ["idTeacher", $idTeacher, PDO::PARAM_STR]
         ];
 
+        // Permet de préparer et d'exécuter une requéte de type prepare avec WHERE 
         $req = $this->queryPrepareExecute($query, $binds);
 
         // Appeler la méthode pour avoir le résultat sous forme de tableau
         $teachers = $this->formatData($req);
 
+        // Retour un enseignant
         return $teachers[0];
     }
 
+    /*
+    Supprimer un enseignant de la BD
+    */
     public function deleteTeacher($idTeacher)
     {
+        // Permet de préparer et d'exécuter une requéte de type prepare avec WHERE 
         $query = "DELETE FROM t_teacher WHERE idTeacher = :idTeacher";
+
+        // Permet de stocker les parametres de fonction prepare
         $binds = [
             ["idTeacher", $idTeacher, PDO::PARAM_STR]
         ];
 
+        // Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
         $req = $this->queryPrepareExecute($query, $binds);
-        //$req = $this->querySimpleExecute($query);
         
         // Appeler la méthode pour avoir le résultat sous forme de tableau
         $teachers = $this->formatData($req);
 
+        // Retour un enseignant 
         return $teachers[0];
     }
 
+    /*
+    Récupérer une section de la BD
+    */
     public function getOneSection($idSection)
     {
+        // Avoir la requête sql
         $query = "SELECT * FROM t_section WHERE idSection = " . $idSection;
+        
+        // Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
         $req = $this->querySimpleExecute($query);
 
         // Appeler la méthode pour avoir le résultat sous forme de tableau
         $sections = $this->formatData($req);
 
+        // Retour une section
         return $sections[0];
     }
 
+    /*
+    Récupérer touts les sections de la BD
+    */
     public function getAllSection()
     {
+        // Avoir la requête sql
         $query = "SELECT * FROM t_section";
+
+        // Permet de préparer et d'exécuter une requéte de type simple (sans where)
         $req = $this->querySimpleExecute($query);
 
         // Appeler la méthode pour avoir le résultat sous forme de tableau
         $sections = $this->formatData($req);
 
+        // Retour touts les sections
         return $sections;
     }
 
+    /*
+    Ajouter un enseignant dans la BD
+    */
     public function addTeacher($datas)
     {
-        // recuperer les données
+        // Récupérer les données
         $firstName = $datas['firstName'];
         $lastName = $datas['name'];
         $gender = $datas['genre'];
@@ -161,12 +187,16 @@ class Database
         $query = "INSERT INTO `t_teacher` (`idTeacher`,`teaFirstname`, `teaName`, `teaGender`, `teaNickname`, `teaOrigine`, `fkSection`) 
                   VALUES (DEFAULT,'$firstName', '$lastName', '$gender', '$nickname', '$origin', '$section');";
 
+        // ????? Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
         $this->querySimpleExecute($query);
     }
 
+    /*
+    Mettre à jour un enseignant dans la BD
+    */
     public function updateTeacher($datas)
     {
-        // recuperer les données
+        // Récupérer les données
         $idTeacher = $datas['idTeacher'];
         $firstName = $datas['firstName'];
         $lastName = $datas['name'];
@@ -174,48 +204,39 @@ class Database
         $nickname = $datas['nickName'];
         $origin = $datas['origin'];
         $section = $datas['section'][0];
-         
-        echo $idTeacher. " fhdjkhjkhv";
 
-        echo "<pre>";
-        var_dump($datas);
-        echo "</pre>";
         // Ajout de données avec requête préparée (requête paramétrée)
         $query = "UPDATE `t_teacher` SET `teaFirstname` = '$firstName', `teaName` = '$lastName', `teaGender` = '$gender', ";
         $query .= " `teaNickname` = '$nickname', `teaOrigine` = '$origin', `fkSection` = '$section' WHERE `idTeacher` = $idTeacher";
 
-
-        echo "<pre>";
-        var_dump($query);
-        echo "</pre>";
-
+        // ?????? Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
         $this->querySimpleExecute($query);
     }
 
-    public function Login($datas)
-    {
-        $login = false;
-        // recuperer les données
-        $userName = $datas['user'];
-        $password = $datas['password'];
+    // public function Login($datas)
+    // {
+    //     $login = false;
+    //     // recuperer les données
+    //     $userName = $datas['user'];
+    //     $password = $datas['password'];
 
-        // Ajout de données avec requête préparée (requête paramétrée)
-        $query = "SELECT * FROM `t_user`";
+    //     // Ajout de données avec requête préparée (requête paramétrée)
+    //     $query = "SELECT * FROM `t_user`";
                   
-        $req = $this->querySimpleExecute($query);
-        $users = $this->formatData($req);
+    //     $req = $this->querySimpleExecute($query);
+    //     $users = $this->formatData($req);
 
-        foreach($users as $user){
-            if($user[`useLogin`] == $userName){
-                echo "giris basarili";
-                $login = true;
-                $_SESSION["currentUser"]["name"] = $user[`useLogin`];
-                echo "<pre>";
-                var_dump($_SESSION);
-                echo "</pre>";
-            }
-        }
-    }
+    //     foreach($users as $user){
+    //         if($user[`useLogin`] == $userName){
+    //             echo "giris basarili";
+    //             $login = true;
+    //             $_SESSION["currentUser"]["name"] = $user[`useLogin`];
+    //             echo "<pre>";
+    //             var_dump($_SESSION);
+    //             echo "</pre>";
+    //         }
+    //     }
+    // }
     /*
     // Ajouter un utilisateur dans le base de données
     public function checkLogin($datas)

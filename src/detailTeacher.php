@@ -6,19 +6,20 @@ Date          : 30.09.2024
 Description   : Afficher les details de l'enseignant
 */
 
+// Ajouter la page Database.php
 include("Database.php");
 
+// Permet de récupérer id de l'enseignant
 $idTeacher = $_GET["idTeacher"];
 
+// Connection de base de données
 $db = new Database();
+
+// Appeler la fonction dans le fichier Database.php
 $teacher = $db->getOneTeacher($idTeacher);
+
+// Appeler la fonction dans le fichier Database.php
 $section = $db->getOneSection($teacher["fkSection"]);
-
-echo "<pre>";
-var_dump($teacher);
-var_dump($section);
-echo "</pre>";
-
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +40,7 @@ echo "</pre>";
     <div class="container">
         <div class="user-head">
             <h3>Détail : <?php echo $teacher["teaFirstname"] . " " . $teacher["teaName"] ?>
-                <!-- Ajouter les IF correspondants -->
+                <!-- Ajouter les IF correspondants pour affichage de genre depuis DB-->
                 <?php
                 if ($teacher["teaGender"] === "M") {
                 ?>

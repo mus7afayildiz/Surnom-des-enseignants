@@ -6,13 +6,14 @@ Date          : 30.09.2024
 Description   : Page d'accueil permet de afficher les enseignants
 */
 
+// Ajouter la page Database.php
 include("./Database.php");
-$db = new Database();
-$teachers = $db->getAllTeachers();
 
-// echo "<pre>";
-// var_dump($teachers);
-// echo "</pre>";
+// Connection de base de données
+$db = new Database();
+
+// Appeler la fonction dans le fichier Database.php pour récupérer tous les enseignants
+$teachers = $db->getAllTeachers();
 
 ?>
 <!DOCTYPE html>
@@ -28,7 +29,10 @@ $teachers = $db->getAllTeachers();
 
 <body>
 
-    <?php include("./parts/header.inc.php") ?>
+    <?php 
+    // Ajouter de la tête 
+    include("./parts/header.inc.php") 
+    ?>
 
     <div class="container">
         <h3>Liste des enseignants</h3>
@@ -43,9 +47,7 @@ $teachers = $db->getAllTeachers();
                 </thead>
                 <tbody>
                     <?php
-                    // foreach pour parcourir tous les enseignants 
-                    // $teachers                 
-
+                    // foreach pour parcourir tous les enseignants                
                     $html = "";
                     foreach ($teachers as $teacher) {
                         $html .= "<tr>";
@@ -74,14 +76,16 @@ $teachers = $db->getAllTeachers();
                     echo $html;
                     ?>
 
-
                 </tbody>
             </table>
         </form>
         <script src="js/script.js"></script>
     </div>
 
-    <?php include("./parts/footer.inc.php") ?>
+    <?php 
+    // Ajouter de la pied
+    include("./parts/footer.inc.php") 
+    ?>
 
 </body>
 

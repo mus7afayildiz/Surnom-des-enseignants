@@ -6,12 +6,15 @@ Date          : 30.09.2024
 Description   : Ajouter un enseignant avec genre, nom, prénom, surnom, origin, section.
 */
 
+// Ajouter la page Datebase.php
 include("./Database.php");
+
+// Connection de la base de données
 $db = new Database();
+
+// Appeler la fonction dans le fichier Database.php
 $sections = $db->getAllSection();
-echo "<pre>";
-var_dump($_POST);
-echo "</pre>";
+
 ?>
 
 <!DOCTYPE html>
@@ -26,8 +29,11 @@ echo "</pre>";
 </head>
 
 <body>
-
-    <?php include("./parts/header.inc.php") ?>
+    
+    <?php 
+    // Ajouter de la tête 
+    include("./parts/header.inc.php") 
+    ?>
 
     <div class="container">
         <div class="user-body">
@@ -62,6 +68,7 @@ echo "</pre>";
                     <select name="section" id="section">
                         <option value="">Section</option>
                         <?php
+                        // Afficher les section dynamiquement depuis la base de données
                         foreach ($sections as $section) { ?>
                             <option value="<?= $section['idSection'] ?>"><?php echo $section['secName'] ?></option>
                         <?php }
@@ -79,7 +86,10 @@ echo "</pre>";
         </div>
     </div>
 
-    <?php include("./parts/footer.inc.php") ?>
+    <?php 
+    // Ajouter de la pied
+    include("./parts/footer.inc.php") 
+    ?>
 
 </body>
 

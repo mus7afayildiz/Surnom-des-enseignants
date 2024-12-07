@@ -6,31 +6,23 @@ Date          : 30.09.2024
 Description   : Permet de mettre à jour un enseignant
 */
 
+// Ajouter la page Datebase.php
 include("Database.php");
+
+// Permet de récupérer id de l'enseignant
 $idTeacher = $_GET["idTeacher"];
 
+// Connection de base de données
 $db = new Database();
+
+// Appeler la fonction dans le fichier Database.php pour récupérer un id de l'enseignant
 $teacher = $db->getOneTeacher($idTeacher);
 
-echo "<pre>";
-var_dump($teacher);
-echo "</pre>";
-
-
+// Appeler la fonction dans le fichier Database.php pour récupérer une section
 $sectionOfTeacher = $db->getOneSection($teacher["fkSection"]);
 
-
+// Appeler la fonction dans le fichier Database.php pour récupérer toutes les sections
 $sections = $db->getAllSection();
-
-/*
-echo "<pre>";
-var_dump($teacher);
-var_dump($sections);
-
-var_dump($sectionOfTeacher);
-echo "</pre>";
-*/
-
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +38,10 @@ echo "</pre>";
 
 <body>
 
-    <?php include("./parts/header.inc.php") ?>
+    <?php
+    // Ajouter de la tête 
+    include("./parts/header.inc.php")
+    ?>
 
     <div class="container">
         <div class="user-body">
@@ -131,7 +126,10 @@ echo "</pre>";
         </div>
     </div>
 
-    <?php include("./parts/footer.inc.php") ?>
+    <?php
+    // Ajouter de la pied
+    include("./parts/footer.inc.php")
+    ?>
 
 </body>
 
