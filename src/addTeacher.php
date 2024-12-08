@@ -29,10 +29,10 @@ $sections = $db->getAllSection();
 </head>
 
 <body>
-    
-    <?php 
+
+    <?php
     // Ajouter de la tête 
-    include("./parts/header.inc.php") 
+    include("./parts/header.inc.php")
     ?>
 
     <div class="container">
@@ -86,9 +86,9 @@ $sections = $db->getAllSection();
         </div>
     </div>
 
-    <?php 
+    <?php
     // Ajouter de la pied
-    include("./parts/footer.inc.php") 
+    include("./parts/footer.inc.php")
     ?>
 
 </body>

@@ -29,9 +29,9 @@ $teachers = $db->getAllTeachers();
 
 <body>
 
-    <?php 
+    <?php
     // Ajouter de la tête 
-    include("./parts/header.inc.php") 
+    include("./parts/header.inc.php")
     ?>
 
     <div class="container">
@@ -82,9 +82,9 @@ $teachers = $db->getAllTeachers();
         <script src="js/script.js"></script>
     </div>
 
-    <?php 
+    <?php
     // Ajouter de la pied
-    include("./parts/footer.inc.php") 
+    include("./parts/footer.inc.php")
     ?>
 
 </body>

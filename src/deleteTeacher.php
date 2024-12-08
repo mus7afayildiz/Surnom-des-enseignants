@@ -18,4 +18,3 @@ $db->deleteTeacher($_GET["idTeacher"]);
 // Permet de ouvrir la page d'accueil
 header("Location: /index.php");
 exit;
-?>

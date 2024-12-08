@@ -43,10 +43,10 @@ class Database
         // Permet de préparer et d'exécuter une requéte de type prepare avec WHERE       
         $req = $this->connector->prepare($query);
 
-        foreach($binds as $bind) {
+        foreach ($binds as $bind) {
             $req->bindValue($bind[0], $bind[1], $bind[2]);
         }
-        
+
         // Permet de exécuter method prepare
         $req->execute();
 
@@ -125,7 +125,7 @@ class Database
 
         // Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
         $req = $this->queryPrepareExecute($query, $binds);
-        
+
         // Appeler la méthode pour avoir le résultat sous forme de tableau
         $teachers = $this->formatData($req);
 
@@ -140,7 +140,7 @@ class Database
     {
         // Avoir la requête sql
         $query = "SELECT * FROM t_section WHERE idSection = " . $idSection;
-        
+
         // Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
         $req = $this->querySimpleExecute($query);
 
@@ -183,12 +183,32 @@ class Database
         $section = $datas['section'];
 
 
-        // Ajout de données avec requête préparée (requête paramétrée)
-        $query = "INSERT INTO `t_teacher` (`idTeacher`,`teaFirstname`, `teaName`, `teaGender`, `teaNickname`, `teaOrigine`, `fkSection`) 
-                  VALUES (DEFAULT,'$firstName', '$lastName', '$gender', '$nickname', '$origin', '$section');";
+        // // Ajout de données avec requête préparée (requête paramétrée)
+        // $query = "INSERT INTO `t_teacher` (`idTeacher`,`teaFirstname`, `teaName`, `teaGender`, `teaNickname`, `teaOrigine`, `fkSection`) 
+        //           VALUES (DEFAULT,'$firstName', '$lastName', '$gender', '$nickname', '$origin', '$section');";
 
-        // ????? Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
-        $this->querySimpleExecute($query);
+        // // ????? Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
+        // $this->querySimpleExecute($query);
+
+
+
+        // Avoir la requête sql
+        $query = "INSERT INTO `t_teacher`(`idTeacher`, `teaFirstname`, `teaName`, `teaGender`, `teaNickname`, `teaOrigine`, `fkSection`)
+                                VALUES (DEFAULT, :teaFirstname, :teaName, :teaGender, :teaNickname, :teaOrigine, :fkSection)";
+
+        // Avoir la list PDO pour requête prépare sql
+        $binds = [];
+        $binds[] = [":teaFirstname", $firstName, PDO::PARAM_STR];
+        $binds[] = [":teaName", $lastName, PDO::PARAM_STR];
+        $binds[] = [":teaGender", $gender, PDO::PARAM_STR];
+        $binds[] = [":teaNickname", $nickname, PDO::PARAM_STR];
+        $binds[] = [":teaOrigine", $origin, PDO::PARAM_STR];
+        $binds[] = [":fkSection", $section, PDO::PARAM_STR];
+
+        // Ajout de données avec requête préparée (requête paramétrée)
+        $req = $this->queryPrepareExecute($query, $binds);
+
+        return $req;
     }
 
     /*
@@ -206,66 +226,22 @@ class Database
         $section = $datas['section'][0];
 
         // Ajout de données avec requête préparée (requête paramétrée)
-        $query = "UPDATE `t_teacher` SET `teaFirstname` = '$firstName', `teaName` = '$lastName', `teaGender` = '$gender', ";
-        $query .= " `teaNickname` = '$nickname', `teaOrigine` = '$origin', `fkSection` = '$section' WHERE `idTeacher` = $idTeacher";
+        $query = "UPDATE `t_teacher` SET `teaFirstname` = :teaFirstname, `teaName` = :teaName, `teaGender` = :teaGender, ";
+        $query .= " `teaNickname` = :teaNickname, `teaOrigine` = :teaOrigine, `fkSection` = :fkSection WHERE `idTeacher` = $idTeacher";
 
-        // ?????? Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
-        $this->querySimpleExecute($query);
+
+        // Avoir la list PDO pour requête prépare sql
+        $binds = [];
+        $binds[] = [":teaFirstname", $firstName, PDO::PARAM_STR];
+        $binds[] = [":teaName", $lastName, PDO::PARAM_STR];
+        $binds[] = [":teaGender", $gender, PDO::PARAM_STR];
+        $binds[] = [":teaNickname", $nickname, PDO::PARAM_STR];
+        $binds[] = [":teaOrigine", $origin, PDO::PARAM_STR];
+        $binds[] = [":fkSection", $section, PDO::PARAM_STR];
+
+        // Ajout de données avec requête préparée (requête paramétrée)
+        $req = $this->queryPrepareExecute($query, $binds);
+
+        return $req;
     }
-
-    // public function Login($datas)
-    // {
-    //     $login = false;
-    //     // recuperer les données
-    //     $userName = $datas['user'];
-    //     $password = $datas['password'];
-
-    //     // Ajout de données avec requête préparée (requête paramétrée)
-    //     $query = "SELECT * FROM `t_user`";
-                  
-    //     $req = $this->querySimpleExecute($query);
-    //     $users = $this->formatData($req);
-
-    //     foreach($users as $user){
-    //         if($user[`useLogin`] == $userName){
-    //             echo "giris basarili";
-    //             $login = true;
-    //             $_SESSION["currentUser"]["name"] = $user[`useLogin`];
-    //             echo "<pre>";
-    //             var_dump($_SESSION);
-    //             echo "</pre>";
-    //         }
-    //     }
-    // }
-    /*
-    // Ajouter un utilisateur dans le base de données
-    public function checkLogin($datas)
-    {
-        // à partir du login et password saisis par l'utilisateur
-        // TODO : Validation des saisies utilisateur
-        $useLogin = $datas['user'];
-        $usePassword = $datas['password'];
-        $query = "SELECT * FROM t_user where useLogin = :useLogin and usePassword = :usePassword";
-
-        // Création de la requête SQL permettant de récupérer les informations de l'utilisateur
-        // Exécution de la requête. A noter l'utilisation de la méthode ->query()
-        $req = $this->connector->prepare($query);
-
-        $req->bindValue('useLogin', $useLogin, PDO::PARAM_STR);
-        $req->bindValue('usePassword', $usePassword, PDO::PARAM_STR);
-        $req->execute();
-
-        // // On convertit le résultat de la requête en tableau
-        // $user = $req->fetchALL(PDO::FETCH_ASSOC);
-        // // Si le tableau 'user' n'est pas vide, cela signifie que l'utilisateur a bien été trouvé en DB
-        // if ($user) {
-        //     // Ajout de données avec requête préparée (requête paramétrée)
-        //     $query = "INSERT INTO `t_user` (`idUser`,`useLogin`, `usePassword`, `useAdministrator`) 
-        //               VALUES (DEFAULT,'$useLogin', '$usePassword', 0);";
-
-        //     $this->querySimpleExecute($query);
-        // }
-    }
-    // + tous les autres m�thodes dont vous aurez besoin pour la suite (insertTeacher ... etc)
-    */
 }
