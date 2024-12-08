@@ -68,17 +68,18 @@ $section = $db->getOneSection($teacher["fkSection"]);
             </p>
             <div class="actions">
 
-                <a href="./editTeacher.php">
-                    <img height="20em" src="./img/edit.png" alt="edit icon"></a>
+                <?php
+                $html = "<a href=\"./updateTeacher.php?idTeacher=" . $teacher["idTeacher"] . "\">";
+                $html .= "<img height=\"20em\" src=\"./img/edit.png\" alt=\"edit icon\">";
+                $html .= "</a>";
+                echo $html;
+                ?>
 
                 <?php
-
                 $html = "<a onClick='return confirm(\"Êtes-vous sûr de vouloir supprimer l enseignant?\");' href=\"./deleteTeacher.php?idTeacher=" . $teacher["idTeacher"] . "\">";
                 $html .= "<img height=\"20em\" src=\"./img/delete.png\" alt=\"delete\">";
                 $html .= "</a>";
-
                 echo $html;
-
                 ?>
 
             </div>

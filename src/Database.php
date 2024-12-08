@@ -64,7 +64,7 @@ class Database
     /*
     Permet de vider le jeu d'enregistrements
     */
-    private function unsetData($req)
+    public function unsetData($req)
     {
         // Vider le jeu d'enregistrements
         return $req->closeCursor();
@@ -181,16 +181,6 @@ class Database
         $nickname = $datas['nickName'];
         $origin = $datas['origin'];
         $section = $datas['section'];
-
-
-        // // Ajout de données avec requête préparée (requête paramétrée)
-        // $query = "INSERT INTO `t_teacher` (`idTeacher`,`teaFirstname`, `teaName`, `teaGender`, `teaNickname`, `teaOrigine`, `fkSection`) 
-        //           VALUES (DEFAULT,'$firstName', '$lastName', '$gender', '$nickname', '$origin', '$section');";
-
-        // // ????? Permet de préparer et d'exécuter une requéte de type prepare avec WHERE
-        // $this->querySimpleExecute($query);
-
-
 
         // Avoir la requête sql
         $query = "INSERT INTO `t_teacher`(`idTeacher`, `teaFirstname`, `teaName`, `teaGender`, `teaNickname`, `teaOrigine`, `fkSection`)
