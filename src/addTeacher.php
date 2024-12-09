@@ -40,7 +40,7 @@ $sections = $db->getAllSection();
             <form action="./checkAddTeacher.php" method="post" id="form">
                 <h3>Ajout d'un enseignant</h3>
                 <p>
-                    <input type="radio" id="genre1" name="genre" value="M" checked>
+                    <input type="radio" id="genre1" name="genre" value="M">
                     <label for="genre1">Homme</label>
                     <input type="radio" id="genre2" name="genre" value="F">
                     <label for="genre2">Femme</label>
@@ -76,7 +76,7 @@ $sections = $db->getAllSection();
                     </select>
                 </p>
                 <p>
-                    <input type="submit" value="Ajouter">
+                    <input type="submit" name="add" value="Ajouter">
                     <button type="button" onclick="document.getElementById('form').reset();">Effacer</button>
                 </p>
             </form>
